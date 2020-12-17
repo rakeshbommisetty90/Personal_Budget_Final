@@ -1,0 +1,57 @@
+{
+  "myBudget":[
+  {
+      "title":"Eat out",
+      "budget": 90,
+      "color":"#edf756"
+  },
+  {
+      "title":"Rent",
+      "budget": 200 ,
+      "color":"#ffcd56"
+
+  },
+  {
+      "title":"Groceries",
+      "budget": 120 ,
+      "color":"#878bb6"
+
+  },
+  {
+      "title":"Travel",
+      "budget": 100 ,
+      "color":"#4acab4"
+
+  },
+  {
+      "title":"Insurance",
+      "budget": 60 ,
+      "color":"#ff8153"
+
+  },
+  {
+      "title":"Gas",
+      "budget": 30 ,
+      "color":"#ff6384"
+
+  },
+  {
+      "title":"Electricity Bill",
+      "budget": 40 ,
+      "color":"#36a2eb"
+
+  },
+  {
+      "title":"Maintenance",
+      "budget": 80 ,
+      "color":"#fd6b19"
+
+  },
+  {
+      "title":"others",
+      "budget": 50 ,
+      "color":"#878bb6"
+
+  }
+]
+}
