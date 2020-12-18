@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,7 +14,14 @@ import { LoginComponent } from './login/login.component';
 import { P404Component } from './p404/p404.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ContactComponent } from './contact/contact.component';
-import { BarplotComponent } from './barplot/barplot.component';
+import { SignupComponent } from './signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AuthGuard } from './auth.guard';
+import { AuthorizationService } from './authorization.service';
+import { DataService } from './data.service';
+import { TokenService } from './token.service';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,14 +35,18 @@ import { BarplotComponent } from './barplot/barplot.component';
     P404Component,
     BreadcrumbsComponent,
     ContactComponent,
-    BarplotComponent  ],
+    SignupComponent,
+    DashboardComponent ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [DataService,AuthorizationService,AuthGuard,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenService,
+    multi: true
+  }],  bootstrap: [AppComponent]
 })
 export class AppModule { }

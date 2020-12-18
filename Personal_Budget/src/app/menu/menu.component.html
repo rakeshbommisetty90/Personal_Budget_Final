@@ -1,8 +1,32 @@
-<nav class="menu"> <!-- This is a Semantic HTML Change -->
+<nav class="menu">
+  <!-- This is a Semantic HTML Change -->
   <ul>
     <li><a [routerLink]="['/']">Home</a></li>
     <li><a [routerLink]="['/about']">About</a></li>
-    <li><a [routerLink]="['/login']">Login</a></li>
     <li><a [routerLink]="['/contact']">Contact</a></li>
+    <li><a [routerLink]="['/dashboard']">Dashboard</a></li>
+    <li>
+      <a
+        [routerLink]="['/login']"
+        rel="canonical"
+        *ngIf="!_authservice.loggedIn()"
+        >Login</a
+      >
+    </li>
+    <!--This is SEO change-->
+    <li>
+      <a
+        [routerLink]="['/signup']"
+        rel="canonical"
+        *ngIf="!_authservice.loggedIn()"
+        >Signup</a
+      >
+    </li>
+    <li>
+      <a *ngIf="_authservice.loggedIn()" (click)="_authservice.logout()"
+        >Logout</a
+      >
+    </li>
+    <!--This is SEO change-->
   </ul>
 </nav>

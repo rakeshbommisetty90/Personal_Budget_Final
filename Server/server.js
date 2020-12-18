@@ -2,7 +2,8 @@
 
 const express = require('express');
 const app = express();
-const config = require('config');
+//const config = require('config');
+const jwt = require('jsonwebtoken');
 const cors = require('cors');
 app.use(cors());
 const mongoose = require('mongoose');
@@ -11,8 +12,8 @@ const bodyParser = require('body-parser');
 const budgetModel = require('./models/budgetModel');
 
 const userModel = require('./models/userModel');
-//const users = require('./routes/users');
-//const auth = require('./routes/auth');
+const users = require('./routes/user');
+const auth = require('./routes/auth');
 const budget = require('./routes/budget');
 //const feedback = require('./routes/feedback');
 
@@ -42,12 +43,31 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-//app.use('/users', users);
+app.use('/registration', users);
+app.use('/login', auth);
 //app.use('/auth', auth);
 app.use('/budget', budget);
 //app.use('/feedback', feedback);
 app.use('', express.static('public'));
 
-app.listen(port, () => {
-	console.log('App is running on port ' + port);
+function verifyToken(req, res, next) {
+	if (!req.headers.authorization) {
+		return res.status(401).send('Unauthorized request');
+	}
+	let token = req.headers.authorization.split(' ')[1];
+	if (token === 'null') {
+		return res.status(401).send('Unauthorized request');
+	}
+	let payload = jwt.verify(token, 'secretKey');
+	if (!payload) {
+		return res.status(401).send('Unauthorized request');
+	}
+	req.userId = payload.subject;
+	next();
+}
+
+app.get('/dashboard', verifyToken, (req, res) => {
+	console.log('entered dashboard');
+	res.json(true);
 });
+app.listen(3000, () => console.log('Server listening at 3000'));
